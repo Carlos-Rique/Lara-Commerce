@@ -1,24 +1,18 @@
 # lara-commerce
 
-## Project setup
+## Instalação de dependências
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Iniciar servidor do projeto
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Verificar Endereço da API
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+Verifique se o endereço da api a ser conectada no projeto está certa em: lara-commerce\src\services\ProductService.
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
