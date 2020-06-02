@@ -26,6 +26,12 @@ export default {
   methods: {
     addToCart (product) {
       this.$store.dispatch('insertProductOnCart', product)
+      this.$bvToast.toast('Clique no carrinho para verificar seus produtos e finalizar seu pedido.', {
+        title: `O Produto ${product.name} foi adicionado ao carrinho!`,
+        variant: 'success',
+        toaster: 'b-toaster-top-left',
+        autoHideDelay: 4000
+      })
     }
   }
 }

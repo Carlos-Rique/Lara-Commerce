@@ -2,7 +2,7 @@
   <div class="mt-5">
     <b-container class="bv-example-row">
       <b-row>
-        <ProductCard v-for="product in products" :key="product.id" :product="product" />
+        <ProductCard v-for="product in productsFiltered" :key="product.id" :product="product" />
       </b-row>
     </b-container>
   </div>
@@ -17,7 +17,7 @@ export default {
   },
   computed:
     mapState([
-      'products'
+      'productsFiltered'
     ])
 }
 </script>

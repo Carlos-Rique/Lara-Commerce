@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: {},
+    productsFiltered: {},
     cart: [],
     total: 0
   },
@@ -17,16 +18,12 @@ export default new Vuex.Store({
     },
     SET_PRODUCTS (state, products) {
       state.products = products
+      state.productsFiltered = products
     },
     CALC_TOTAL_PRODUCT_PRICE (state, payload) {
       state.cart.find(product => product.id === payload.product)
         .total_price = payload.quantity * state.cart.find(product => product.id === payload.product)
           .price
-      var total = 0
-      state.cart.forEach(element => {
-        total = element.total_price + total
-      })
-      state.total = total.toFixed(2)
     },
     CALC_TOTAL_TO_PAY (state) {
       var total = 0
@@ -39,6 +36,16 @@ export default new Vuex.Store({
       state.products = {}
       state.cart = []
       state.total = 0
+    },
+    FILTER_PRODUCTS (state, productsearch) {
+      if (!productsearch.length) {
+        state.productsFiltered = state.products
+      } else {
+        state.productsFiltered = state.products.filter(products => products.name.toLowerCase().includes(productsearch))
+      }
+    },
+    REMOVE_ITEM_FROM_CART (state, product) {
+      state.cart = state.cart.filter(item => item.id !== product)
     }
   },
   actions: {
@@ -57,9 +64,10 @@ export default new Vuex.Store({
     },
     CalcTotalPrice ({ commit }, payload) {
       commit('CALC_TOTAL_PRODUCT_PRICE', payload)
+      commit('CALC_TOTAL_TO_PAY')
     },
-    CalcTotalToPay ({ commit }, payload) {
-      commit('CALC_TOTAL_TO_PAY', payload)
+    CalcTotalToPay ({ commit }) {
+      commit('CALC_TOTAL_TO_PAY')
     },
     createOrder ({ state, commit }) {
       const order = {
@@ -85,6 +93,13 @@ export default new Vuex.Store({
         console.log('falha')
         console.log(error)
       })
+    },
+    FilterProduct ({ commit }, productsearch) {
+      commit('FILTER_PRODUCTS', productsearch)
+    },
+    DeleteItemFromCart ({ commit }, product) {
+      commit('REMOVE_ITEM_FROM_CART', product)
+      commit('CALC_TOTAL_TO_PAY')
     }
   },
   getters: {

@@ -21,12 +21,7 @@ const routes = [
       store.dispatch('fetchProducts').then(response => {
         next()
       }).catch(error => {
-        // console.log(error)
-        if (error.response && error.response.status === 404) {
-          // next({ name: '404', params: {resource : 'event'}})
-        } else {
-          //  next({ name: 'Network-Issue'})
-        }
+        console.log(error)
       })
     }
   },
@@ -34,14 +29,6 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
 

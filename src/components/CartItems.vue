@@ -5,7 +5,8 @@
     <b-col cols="3">Produto</b-col>
     <b-col cols="2">Quantidade</b-col>
     <b-col cols="3">Preço unitário</b-col>
-    <b-col cols="3">Total Líquido</b-col>
+    <b-col cols="2">Total Líquido</b-col>
+    <b-col cols="1">Remover Produto</b-col>
   </b-row>
   <b-row>
     <b-col cols="1">{{product.id}}</b-col>
@@ -18,7 +19,8 @@
       </div>
     </b-col >
     <b-col cols="3">R$ {{product.price.toFixed(2)}}</b-col>
-    <b-col cols="3"><strong>R$ {{product.total_price.toFixed(2)}}</strong></b-col>
+    <b-col cols="2"><strong>R$ {{product.total_price.toFixed(2)}}</strong></b-col>
+    <b-col cols="1"><b-icon-trash @click="DeleteItem(product.id)" variant="danger" class="h2"></b-icon-trash></b-col>
   </b-row>
   <hr/>
 </div>
@@ -46,11 +48,16 @@ export default {
         var quantity = this.product_unit
         this.$store.dispatch('CalcTotalPrice', { product, quantity })
       }
+    },
+    DeleteItem (product) {
+      this.$store.dispatch('DeleteItemFromCart', product)
     }
   }
 }
 </script>
 
 <style>
-
+svg {
+  cursor: pointer;
+}
 </style>
